@@ -3,7 +3,6 @@ package aaa;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -14,20 +13,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-
-
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class RegisterServlet
  */
-@WebServlet("/LoginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/RegisterServlet")
+public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
-    	super();
+    public RegisterServlet() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -36,42 +33,30 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		response.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8");
+		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		/*if(username.equals("222")&&password.equals("222")) {
-			response.getWriter().println("success");
-		}
-		else {
-			response.getWriter().println("fail");
-			
-		}*/
+		int age = Integer.parseInt(request.getParameter("age"));
+		String major = request.getParameter("major");
 		
 		Connection connection = DBUtil.getConnection();
-	 String sql="select count(*) from users where username=? and password=?";
-	 ResultSet resultSet = null;
-	 int result =0;
-	 try {
+		String sql = "INSERT INTO users VALUES(?,?,?,?)";
+		int result = 0;
+		try {
 			PreparedStatement pStatement = connection.prepareStatement(sql);
 			pStatement.setString(1, username);
 			pStatement.setString(2, password);
-			resultSet = pStatement.executeQuery();
-			if (resultSet.next()) {
-				result = resultSet.getInt(1);
-				
-			}
-		} 
-	 catch (SQLException e) {
+			pStatement.setInt(3, age);
+			pStatement.setString(4, major);
+			result = pStatement.executeUpdate();
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}		
-		//response.getWriter().println(result);
+		}
+		
 		RequestDispatcher rDispatcher = request.getRequestDispatcher("result.jsp");
-		request.setAttribute("resMessage", result==1?"success":"fail");
+		request.setAttribute("resMessage", result==1?"×¢²á³É¹¦":"×¢²áÊ§°Ü");
 		rDispatcher.forward(request, response);
-
-	
-				
 	}
 
 	/**

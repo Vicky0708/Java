@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 
 public class DBUtil{
-	static String user ="root";
-	static String password="123456";
-	static String url = "jdbc:mysql://localhost:3306/user?characterEncoding=UTF-8";
+	static String user ="db170104130112";
+	static String password="170104130112";
+	static String url = "jdbc:mysql://www.mycourse.top:3306/user?characterEncoding=UTF-8";
 	static {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

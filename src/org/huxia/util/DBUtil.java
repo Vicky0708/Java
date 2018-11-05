@@ -1,0 +1,29 @@
+package org.huxia.util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DBUtil {
+	static String user = "cwf";
+	static String password = "123456";
+	static String url = "jdbc:mysql://172.16.5.150:3306/jsp2018?characterEncoding=UTF-8";
+	
+	static {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static Connection getConnection() {
+		Connection connection = null;
+		try {
+			connection = DriverManager.getConnection(url, user, password);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return connection;
+	}
+}

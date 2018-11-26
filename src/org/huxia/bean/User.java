@@ -1,5 +1,6 @@
 package org.huxia.bean;
 
+
 public class User {
 	private String stuId;
 	private String stuName;
@@ -11,9 +12,16 @@ public class User {
 	public User() {
 		super();
 	}
-//	public User(String stuId, String stuName, String avatar, String gender, ) {
-//		
-//	}
+	public User(String stuId, String stuName, String password, String avatar, String gender, String bio, String gitUrl) {
+		super();
+		this.stuId = stuId;
+		this.stuName = stuName;
+		this.password = password;
+		this.avatar = avatar;
+		this.gender = gender;
+		this.bio = bio;
+		this.gitUrl = gitUrl;
+	}
 	public String getStuId() {
 		return stuId;
 	}

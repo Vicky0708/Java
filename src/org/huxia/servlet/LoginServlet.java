@@ -2,18 +2,21 @@ package org.huxia.servlet;
 
 import java.io.IOException;
 
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.huxia.bean.User;
 import org.huxia.dao.UserDao;
+import org.huxia.util.EncryptTool;
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * Servlet implementation class LoginServlet
@@ -50,11 +53,18 @@ request.setCharacterEncoding("utf-8");
 		boolean result = false;
 		UserDao userDao = new UserDao();
 		User user = userDao.query(stuId);
-		if (user != null && user.getPassword().equals(password)) {
+		if (user != null && user.getPassword().equals(DigestUtils.sha1Hex(password))) {
 			result = true;
+			
+			// 设置session
+			HttpSession session = request.getSession(true);
+			user.setPassword("");
+			session.setAttribute("User", user);
+			
+			// 存取cookie
 			if (rememberMe != null && "on".equals(rememberMe)) {
-				Cookie cookieStuId = new Cookie("stuId", Base64.encode(stuId.getBytes()));
-				Cookie cookiePassword = new Cookie("password", Base64.encode(password.getBytes()));
+				Cookie cookieStuId = new Cookie("stuId", EncryptTool.encodeBase64(stuId));
+				Cookie cookiePassword = new Cookie("password", EncryptTool.encodeBase64(password));
 				cookieStuId.setMaxAge(3600*24*365);
 				cookiePassword.setMaxAge(3600*24*365);
 				response.addCookie(cookieStuId);
@@ -68,11 +78,12 @@ request.setCharacterEncoding("utf-8");
 					}						
 				}
 			}
+			
+			response.sendRedirect("index.jsp");
+		} else {		
+			request.setAttribute("tip", "Login failed.");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
-		
-		RequestDispatcher rDispatcher = request.getRequestDispatcher("result.jsp");
-		request.setAttribute("resMessage", result==true?"登录成功":"登录失败");
-		rDispatcher.forward(request, response);
 	}
 
 }

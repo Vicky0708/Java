@@ -1,7 +1,6 @@
 package org.huxia.servlet;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +11,7 @@ import org.huxia.dao.CommentDao;
 import org.huxia.dao.PostDao;
 import org.huxia.dao.UserDao;
 
-import com.sun.webkit.PageCache;
+//import com.sun.webkit.PageCache;
 
 import org.huxia.bean.User;
 import org.huxia.bean.Comment;

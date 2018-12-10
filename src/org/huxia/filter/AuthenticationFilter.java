@@ -1,7 +1,6 @@
 package org.huxia.filter;
 
 import java.io.IOException;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -18,16 +17,16 @@ import javax.servlet.DispatcherType;
  */
 @WebFilter(
 		filterName = "/AuthenticationFilter",
-		urlPatterns = {"/newpost.jsp", "/editpost.jsp", "/userprofile.jsp"},  // 涓嶈兘缂哄皯/瀛楃
+		urlPatterns = {"/newpost.jsp", "/editpost.jsp", "/userprofile.jsp"},  // 不能缺少/字符
 		servletNames = {
-			"org.chenweifeng.servlet.EditPostServlet", 
-			"org.chenweifeng.servlet.NewPostServlet", 
-			"org.chenweifeng.servlet.NewCommentServlet", 
-			"org.chenweifeng.servlet.RemoveCommentServlet",
-			"org.chenweifeng.servlet.RemovePostServlet", 
-			"org.chenweifeng.servlet.UpdateBasicInfoServlet", 
-			"org.chenweifeng.servlet.UpdateAvatarServlet", 
-			"org.chenweifeng.servlet.LogoutServlet"},
+			"org.huxia.servlet.EditPostServlet", 
+			"org.huxia.servlet.NewPostServlet", 
+			"org.huxia.servlet.NewCommentServlet", 
+			"org.huxia.servlet.RemoveCommentServlet",
+			"org.huxia.servlet.RemovePostServlet", 
+			"org.huxia.servlet.UpdateBasicInfoServlet", 
+			"org.huxia.servlet.UpdateAvatarServlet", 
+			"org.huxia.servlet.LogoutServlet"},
 		dispatcherTypes = {DispatcherType.REQUEST}
 		)
 public class AuthenticationFilter implements Filter {
@@ -57,7 +56,7 @@ public class AuthenticationFilter implements Filter {
 		String queryString = req.getQueryString();
 		System.out.println(req.getRequestURL() + (null!=queryString ? "?" + queryString : ""));
 		if (req.getSession(true).getAttribute("User") == null) {
-			// 鏈櫥褰�
+			// 未登录
 			//res.sendRedirect("signin.jsp");
 			req.setAttribute("tip", "You have not signed in!");
 			req.getRequestDispatcher("login.jsp").forward(req, res);

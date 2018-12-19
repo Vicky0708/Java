@@ -84,4 +84,22 @@ public class UserDao {
 		}
 		return (result==1);
 	}
+	
+	public boolean updateImg(User user) {
+		String sql = "UPDATE tb_users SET avatar=? WHERE stuid=?";
+		Connection connection = DBUtil.getConnection();
+		PreparedStatement pStatement = null;
+		int result = 0;
+		try {
+			pStatement = connection.prepareStatement(sql);
+			pStatement.setString(1, user.getAvatar());	
+			pStatement.setString(2, user.getStuId());
+			result = pStatement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeJDBC(null, pStatement, connection);
+		}
+		return (result==1);
+	}
 }

@@ -2,6 +2,7 @@ package org.huxia.servlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.UUID;
 
 import javax.servlet.ServletException;
@@ -84,15 +85,24 @@ public class UpdateAvatarServlet extends HttpServlet {
 			user.setStuName(stuName);
 			user.setAvatar(avatar);
 			user.setStuId(stuId);
-		    userDao.updateImg(user);
-			if(true){
-				request.setAttribute("tip","UpdateImages successfully,logining automatically.");
+			Boolean result = userDao.updateImg(user);
+			if(result){
+				response.setContentType("Text/html;charset=utf-8");
 				HttpSession session=request.getSession(true);
 				session.setAttribute("User", user);
-
-				response.sendRedirect("userprofile.jsp");
+			    PrintWriter out = response.getWriter();
+			    out.println("<script language=javascript>alert('ÒÑÐÞ¸Ä');window.location.href='userprofile.jsp';</script>");
+				//response.sendRedirect("userprofile.jsp");
 			}			
-			
+			else{
+				response.setContentType("Text/html;charset=utf-8");
+				HttpSession session=request.getSession(true);
+				session.setAttribute("User", user);
+			    PrintWriter out = response.getWriter();
+			    out.println("<script language=javascript>alert('ÐÞ¸ÄÊ§°Ü');window.location.href='userprofile.jsp';</script>");
+				
+				
+			}
 			
 		}
 	

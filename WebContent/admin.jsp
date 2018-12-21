@@ -9,6 +9,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <script type="text/javascript">   </script>
+    <script type="text/javascript" src="./js/jquery-3.3.1.js"></script>
+     <script type="text/javascript" >
+      function a(){
+    	  alert("nihao");
+      }
+      function gender(){
+    	  $.ajaxSetup({
+    		  async : false 
+    	  });
+    	  var result 
+    	  $.getJSON(
+    		"GenderCountServlet",null,
+    		function(data){
+    			result = data;
+    		}
+    		);
+    	
+    	  return result;
+
+      }
+      var json = gender();
+      alert(json.no)
+    </script>
+    
     <link rel="icon" href="./img/favicon.ico">
 
     <title>后台管理系统</title>
@@ -18,6 +43,9 @@
 
     <!-- Custom styles for this template -->
     <link href="./css/admin.css" rel="stylesheet">
+    
+    <script type="text/javascript" >
+    </script>
   </head>
 
   <body>
@@ -79,8 +107,10 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="./js/popper.min.js"></script>
+<!--     <script > -->
+   
+<!--    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script> -->
+<!--     <script src="./js/popper.min.js"></script> -->
     <script src="./js/bootstrap.min.js"></script>
 
     <!-- Icons -->
@@ -92,13 +122,14 @@
     <!-- Graphs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     <script>
+    
       var ctx = document.getElementById("myChart");
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          labels: json.sex,
           datasets: [{
-            data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+            data: json.no,
             lineTension: 0,
             backgroundColor: 'transparent',
             borderColor: '#007bff',

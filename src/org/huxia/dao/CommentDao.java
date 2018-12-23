@@ -3,6 +3,7 @@ package org.huxia.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,15 +13,19 @@ import org.huxia.util.DBUtil;
 public class CommentDao {
 	public boolean create(Comment comment) {
 		Connection connection = DBUtil.getConnection();
-		String sql = "INSERT INTO tb_comments(author, postId, content) VALUES(?,?,?)";
+		String sql = "INSERT INTO tb_comments(author, postId, content,posttime) VALUES(?,?,?,?)";
 		PreparedStatement pStatement = null;
 		ResultSet rs = null;
 		int result = 0;
 		try {
+			java.util.Date dnow = new java.util.Date();
+		    Timestamp posttime = new Timestamp(dnow.getTime());
 			pStatement = connection.prepareStatement(sql);
 			pStatement.setString(1, comment.getAuthor());
 			pStatement.setInt(2, comment.getPostId());
 			pStatement.setString(3, comment.getContent());
+			pStatement.setString(4, posttime.toString());
+			System.out.println(posttime.toString());
 			result = pStatement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

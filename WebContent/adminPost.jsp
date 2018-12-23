@@ -15,13 +15,13 @@
       function a(){
     	  alert("nihao");
       }
-      function gender(){
+      function post(){
     	  $.ajaxSetup({
     		  async : false 
     	  });
     	  var result 
     	  $.getJSON(
-    		"GenderCountServlet",null,
+    		"DashBoardPostServlet",null,
     		function(data){
     			result = data;
     		}
@@ -30,7 +30,7 @@
     	  return result;
 
       }
-      var json = gender();
+      var json = post();
       alert(json.no)
     </script>
     
@@ -66,7 +66,7 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <a class="nav-link " href="admin.jsp">
                   <span data-feather="home"></span>
                   Dashboard <span class="sr-only">(current)</span>
                 </a>
@@ -78,7 +78,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="adminPost.jsp">
+                <a class="nav-link active" href="adminPost.jsp">
                   <span data-feather="file"></span>
                   Posts
                 </a>
@@ -127,7 +127,7 @@
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: json.sex,
+          labels: json.name,
           datasets: [{
             data: json.no,
             lineTension: 0,

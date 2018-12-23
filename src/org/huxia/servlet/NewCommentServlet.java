@@ -46,6 +46,7 @@ public class NewCommentServlet extends HttpServlet {
 		
 		String postid = request.getParameter("postid");
 		String content = request.getParameter("comment");
+		
 		String author = ((User)request.getSession().getAttribute("User")).getStuId();
 		CommentDao commentDao = new CommentDao();
 		Comment comment = new Comment(0, author, Integer.parseInt(postid), content, (new Date()));		

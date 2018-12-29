@@ -31,7 +31,7 @@
 
       }
       var json = gender();
-      alert(json.no)
+      //alert(json.no)
     </script>
     
     <link rel="icon" href="./img/favicon.ico">

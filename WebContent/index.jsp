@@ -47,7 +47,11 @@
 				<jsp:param name="author" value="${param.author }" />
 				<jsp:param name="pageNo" value="${param.pageNo }" />
 			</jsp:include>	
-			
+					<jsp:include page='${"ListLikeServlet"}' >
+			<jsp:param name="action" value="listLike" />
+			<jsp:param name="postid" value="${2}" />
+		</jsp:include>
+
           <nav class="blog-pagination">
             <a class='btn btn-outline-${param.pageNo+1<pageCount ? "primary " : "secondary disabled" }' href="index.jsp?pageNo=${param.pageNo+1<pageCount ? param.pageNo+1 : param.pageNo }">Older</a>
             <a class='btn btn-outline-${param.pageNo-1 >= 0 ? "primary " : "secondary disabled" }' href="index.jsp?pageNo=${param.pageNo-1 >= 0 ? param.pageNo-1 : 0 }">Newer</a>

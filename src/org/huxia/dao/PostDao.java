@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+//import org.huxia.bean.Like;
+import org.huxia.bean.LikeFunction;
 import org.huxia.bean.Post;
 import org.huxia.bean.User;
 import org.huxia.util.DBUtil;
@@ -264,4 +266,44 @@ public class PostDao {
 		}
 		return count;
 	}
+	public boolean create(LikeFunction likefunction) {
+		Connection connection = DBUtil.getConnection();
+		String sql = "INSERT INTO tb_like(postid,id,postlike) VALUES(?,?,?)";
+		PreparedStatement pStatement = null;
+		int result = 0;
+		try {
+			pStatement = connection.prepareStatement(sql);
+			pStatement.setString(1, likefunction.getPostId());
+			pStatement.setString(2,likefunction.getId());
+			pStatement.setString(3, likefunction.getLike());
+			result = pStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeJDBC(null, pStatement, connection);
+		}
+		
+		return result==1;
+	}
+	public int queryLikeCount(String postid) {
+		Connection connection = DBUtil.getConnection();
+		String sql = "SELECT COUNT(*) FROM tb_like where postid=?";
+		PreparedStatement pStatement = null;
+		ResultSet rs = null;
+		int count = 0;
+		try {
+			pStatement = connection.prepareStatement(sql);
+			pStatement.setString(1,postid);
+			rs = pStatement.executeQuery();
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeJDBC(null, pStatement, connection);
+		}
+		return count;
+	}
+	
 }

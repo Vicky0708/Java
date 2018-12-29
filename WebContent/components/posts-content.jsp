@@ -13,7 +13,7 @@
 			<a href="post.jsp?postid=${post.postId }"><h2 class="blog-post-title">${post.title }</h2></a>
 			<p class="blog-post-meta">
 				${post.posttime } by <a href="index.jsp?author=${post.author }">${postAuthors[post.author].stuName }</a>.&nbsp;&nbsp; <img
-					src="./img/font-visited.png" height="16">(${post.pv }) <img
+					src="./img/font-visited.png" height="16">(${likes}) <img
 					src="./img/font-comment.png" height="16">(${postCommentCounts[post.postId] })
 			</p>
 		</div>

@@ -9,8 +9,11 @@
 		<div class="blog-post">
 			<h2 class="blog-post-title">${post.title}</h2>
 			<p class="blog-post-meta">${post.posttime}
-				<a href="index.jsp?author=${post.author }">${postAuthor.stuName}</a>.&nbsp;&nbsp; <img
-					src="./img/font-visited.png" height="16">(${post.pv}) <img
+				<a href="index.jsp?author=${post.author }">${postAuthor.stuName}</a>.&nbsp;&nbsp;<!--  <img
+					src="./img/font-visited.png" height="16">(${post.pv})  -->
+					<img
+					src="./img/font-visited.png" height="16">(${likes})
+					<img
 					src="./img/font-comment.png" height="16">(${comments.size() })
 			</p>
 			<div class="blog-post-content">${post.content}</div>
@@ -19,14 +22,17 @@
 
 		<div class="blog-post">
 			<a class="btn btn-outline-primary" href="javascript:history.go(-1)">Return</a>
+			<a class="btn btn-outline-primary" href="LikePostServlet?postid=${post.postId }">Like</a>
 		<c:if test="${User.stuId.equals(post.author) }">
           <a class="btn btn-outline-primary" href="editpost.jsp?postid=${post.postId }">Edit</a>
           <a class="btn btn-outline-primary" href="RemovePostServlet?postid=${post.postId }">Remove</a>
+          
     	</c:if>
     	<c:if test="${!User.stuId.equals(post.author) }">
           <a class="btn btn-outline-secondary" href="editpost.jsp?postid=${post.postId }">Edit</a>
           <a class="btn btn-outline-secondary" href="RemovePostServlet?postid=${post.postId }">Remove</a>
 		</c:if>
+		
 				
 		</div>
 

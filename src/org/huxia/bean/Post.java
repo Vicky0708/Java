@@ -10,6 +10,7 @@ public class Post {
 	private Date posttime;
 	private int pv;
 	
+	
 	public Post() {
 		super();
 	}
@@ -58,4 +59,5 @@ public class Post {
 	public void setPv(int pv) {
 		this.pv = pv;
 	}
+
 }

@@ -42,6 +42,13 @@
 			<jsp:param name="action" value="listcomments" />
 			<jsp:param name="postid" value="${param.postid }" />
 		</jsp:include>
+				<jsp:include page='${"ListLikeServlet"}' >
+			<jsp:param name="action" value="listLike" />
+			<jsp:param name="postid" value="${param.postid }" />
+		</jsp:include>
+
+		
+		
 		
 		<%@ include file="./components/post-content.jsp" %>
 		<%@ include file="./components/post-comments.jsp" %>

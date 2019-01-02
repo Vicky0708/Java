@@ -77,6 +77,11 @@ public class UpdateAvatarServlet extends HttpServlet {
 			System.out.println(filePath);
 			part.write(filePath + "/" + newFileName);
 			avatar = newFileName;
+			
+			UserDao userdao = new UserDao();
+			User user =  userdao.query(stuId);
+			File tempFile  = new File(filePath+"/"+user.getAvatar());
+			tempFile.delete();
 		}
 		
 			UserDao userDao=new UserDao();

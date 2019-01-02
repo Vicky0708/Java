@@ -268,14 +268,14 @@ public class PostDao {
 	}
 	public boolean create(LikeFunction likefunction) {
 		Connection connection = DBUtil.getConnection();
-		String sql = "INSERT INTO tb_like(postid,id,postlike) VALUES(?,?,?)";
+		String sql = "INSERT INTO tb_like(id,postlike,postid) VALUES(?,?,?)";
 		PreparedStatement pStatement = null;
 		int result = 0;
 		try {
 			pStatement = connection.prepareStatement(sql);
-			pStatement.setString(1, likefunction.getPostId());
-			pStatement.setString(2,likefunction.getId());
-			pStatement.setString(3, likefunction.getLike());
+			pStatement.setString(1,likefunction.getId());
+			pStatement.setString(2,likefunction.getLike());
+			pStatement.setString(3, likefunction.getPostId());
 			result = pStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
